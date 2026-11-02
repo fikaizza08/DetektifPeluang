@@ -1,0 +1,1865 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detektif Peluang - Media Pembelajaran Matematika Kelas 6</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Nunito -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- MathJax for Math Formatting -->
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            blue: '#3B82F6',
+                            purple: '#8B5CF6',
+                            yellow: '#F59E0B',
+                            green: '#10B981',
+                            pink: '#EC4899',
+                            dark: '#1E293B'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Nunito', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F1F5F9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #CBD5E1;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94A3B8;
+        }
+
+        /* Animations */
+        @keyframes bounce-slow {
+            0%, 100% { transform: translateY(-5%); }
+            50% { transform: translateY(5%); }
+        }
+        .animate-bounce-slow {
+            animation: bounce-slow 3s infinite ease-in-out;
+        }
+
+        @keyframes flip-coin {
+            0% { transform: rotateY(0deg) scale(1); }
+            50% { transform: rotateY(900deg) scale(1.3); }
+            100% { transform: rotateY(1800deg) scale(1); }
+        }
+        .animate-flip {
+            animation: flip-coin 1s cubic-bezier(0.4, 0.2, 0.2, 1);
+        }
+
+        @keyframes roll-dice {
+            0% { transform: rotate(0deg) scale(1); }
+            25% { transform: rotate(90deg) scale(1.2); }
+            50% { transform: rotate(180deg) scale(0.8); }
+            75% { transform: rotate(270deg) scale(1.1); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+        .animate-roll {
+            animation: roll-dice 0.6s ease-out;
+        }
+
+        /* Perspective for 3D coin */
+        .perspective {
+            perspective: 1000px;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col justify-between overflow-x-hidden bg-[url('https://i.ibb.co/PsQ3B764/Airy-Blue-Educational-Wave-Background.png')] bg-cover bg-center bg-no-repeat bg-fixed">
+
+    <!-- TOP NAVIGATION BAR -->
+    <header class="bg-white/90 backdrop-blur-md border-b-4 border-indigo-500 shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="navTo('home')">
+                <img src="https://i.ibb.co/NnFDRGKp/LOGO-ARKANANTA.png" alt="Logo Arkananta" class="h-10 sm:h-12 w-auto object-contain hover:scale-105 transition" onerror="this.style.display='none'">
+                <div>
+                    <h1 class="text-xl md:text-2xl font-black text-indigo-900 tracking-wide leading-none">DETEKTIF PELUANG</h1>
+                    <p class="text-xs text-indigo-500 font-bold">Matematika Kelas 6 SD</p>
+                </div>
+            </div>
+
+            <!-- Global Nav Buttons -->
+            <div class="flex items-center space-x-2">
+                <button onclick="navTo('home')" class="nav-btn bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-2 px-3 sm:px-4 rounded-xl text-sm transition flex items-center gap-1.5 shadow-sm">
+                    <i class="fa-solid fa-house text-indigo-500"></i> <span class="hidden sm:inline">Beranda</span>
+                </button>
+                <button id="nav-dashboard-btn" onclick="navTo('dashboard')" class="nav-btn bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-3 sm:px-4 rounded-xl text-sm transition flex items-center gap-1.5 shadow-md">
+                    <i class="fa-solid fa-table-cells"></i> <span class="hidden sm:inline">Dashboard</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="max-w-7xl mx-auto px-4 py-6 flex-grow w-full">
+
+        <!-- ================= PAGE 1: BERANDA ================= -->
+        <section id="page-home" class="view-page space-y-8">
+            <!-- Hero Banner -->
+            <div class="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 rounded-3xl p-6 sm:p-10 text-white shadow-2xl relative overflow-hidden">
+                <div class="absolute -right-10 -bottom-10 opacity-20 text-white pointer-events-none">
+                    <i class="fa-solid fa-dice text-[250px]"></i>
+                </div>
+                
+                <div class="max-w-2xl relative z-10 space-y-4">
+                    <span class="bg-white/20 text-white font-extrabold text-xs sm:text-sm uppercase tracking-wider px-4 py-1.5 rounded-full inline-block backdrop-blur-md">
+                        🎓 Media Pembelajaran Interaktif
+                    </span>
+                    <h2 class="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
+                        Selamat Datang, Detektif Cilik! 🔍
+                    </h2>
+                    <p class="text-indigo-100 text-base sm:text-lg leading-relaxed font-semibold">
+                        Mari jelajahi dunia kemungkinan! Temukan rahasia di balik lemparan koin, kocokan dadu, dan misteri kelereng ajaib bersama media interaktif ini.
+                    </p>
+                    <div class="pt-2">
+                        <button onclick="navTo('dashboard')" class="bg-yellow-400 hover:bg-yellow-300 text-slate-900 font-black text-lg px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition duration-200 flex items-center gap-3">
+                            <span>MASUK KE DASHBOARD</span>
+                            <i class="fa-solid fa-circle-arrow-right text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grid Info: Tujuan Pembelajaran & Panduan -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+                
+                <!-- Target / Tujuan Pembelajaran (Terminologi Murid) -->
+                <div class="bg-white rounded-3xl p-6 shadow-lg border-2 border-emerald-100 hover:border-emerald-300 transition">
+                    <div onclick="toggleAccordion('target-content', 'target-chevron')" class="flex items-center justify-between cursor-pointer select-none group">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center text-2xl font-black group-hover:scale-105 transition">
+                                🎯
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-black text-slate-800">Target Belajar Kamu!</h3>
+                                <p class="text-xs text-emerald-600 font-bold flex items-center gap-1">Klik untuk buka/tutup <i class="fa-solid fa-hand-pointer text-[10px]"></i></p>
+                            </div>
+                        </div>
+                        <div class="w-9 h-9 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center transition-transform group-hover:bg-emerald-100">
+                            <i id="target-chevron" class="fa-solid fa-chevron-down text-lg"></i>
+                        </div>
+                    </div>
+                    
+                    <ul id="target-content" class="space-y-3 font-semibold text-slate-600 hidden pt-4 border-t border-slate-100 mt-4">
+                        <li class="flex items-start gap-3 bg-emerald-50/50 p-3 rounded-xl">
+                            <i class="fa-solid fa-circle-check text-emerald-500 text-lg mt-0.5"></i>
+                            <span>Aku bisa membedakan mana kejadian yang <b>PASTI</b>, <b>MUNGKIN</b>, dan <b>TIDAK MUNGKIN</b> terjadi.</span>
+                        </li>
+                        <li class="flex items-start gap-3 bg-emerald-50/50 p-3 rounded-xl">
+                            <i class="fa-solid fa-circle-check text-emerald-500 text-lg mt-0.5"></i>
+                            <span>Aku bisa menentukan titik sampel dan ruang sampel sederhana.</span>
+                        </li>
+                        <li class="flex items-start gap-3 bg-emerald-50/50 p-3 rounded-xl">
+                            <i class="fa-solid fa-circle-check text-emerald-500 text-lg mt-0.5"></i>
+                            <span>Aku bisa menghitung nilai peluang dari lemparan koin, dadu, dan kelereng.</span>
+                        </li>
+                        <li class="flex items-start gap-3 bg-emerald-50/50 p-3 rounded-xl">
+                            <i class="fa-solid fa-circle-check text-emerald-500 text-lg mt-0.5"></i>
+                            <span>Aku bisa membuktikan teori peluang lewat eksperimen seru!</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Panduan Media -->
+                <div class="bg-white rounded-3xl p-6 shadow-lg border-2 border-blue-100 hover:border-blue-300 transition">
+                    <div onclick="toggleAccordion('guide-content', 'guide-chevron')" class="flex items-center justify-between cursor-pointer select-none group">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center text-2xl font-black group-hover:scale-105 transition">
+                                📖
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-black text-slate-800">Cara Menggunakan Media</h3>
+                                <p class="text-xs text-blue-600 font-bold flex items-center gap-1">Klik untuk buka/tutup <i class="fa-solid fa-hand-pointer text-[10px]"></i></p>
+                            </div>
+                        </div>
+                        <div class="w-9 h-9 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center transition-transform group-hover:bg-blue-100">
+                            <i id="guide-chevron" class="fa-solid fa-chevron-down text-lg"></i>
+                        </div>
+                    </div>
+
+                    <div id="guide-content" class="space-y-3 font-semibold text-slate-600 hidden pt-4 border-t border-slate-100 mt-4">
+                        <div class="flex items-center gap-3 bg-blue-50/50 p-3 rounded-xl">
+                            <span class="w-7 h-7 bg-blue-600 text-white rounded-lg flex items-center justify-center font-bold text-sm">1</span>
+                            <span>Pilih menu <b>Materi</b> untuk memahami konsep dasar peluang.</span>
+                        </div>
+                        <div class="flex items-center gap-3 bg-blue-50/50 p-3 rounded-xl">
+                            <span class="w-7 h-7 bg-blue-600 text-white rounded-lg flex items-center justify-center font-bold text-sm">2</span>
+                            <span>Buka menu <b>Lab Simulator</b> untuk melakukan percobaan koin & dadu secara langsung.</span>
+                        </div>
+                        <div class="flex items-center gap-3 bg-blue-50/50 p-3 rounded-xl">
+                            <span class="w-7 h-7 bg-blue-600 text-white rounded-lg flex items-center justify-center font-bold text-sm">3</span>
+                            <span>Uji kemampuanmu di menu <b>Gim Edukatif</b> dan kumpulkan skor tertinggi!</span>
+                        </div>
+                        <div class="flex items-center gap-3 bg-blue-50/50 p-3 rounded-xl">
+                            <span class="w-7 h-7 bg-blue-600 text-white rounded-lg flex items-center justify-center font-bold text-sm">4</span>
+                            <span>Cek namamu di <b>Papan Skor</b> untuk melihat peringkat Detektif Terbaik!</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= PAGE 2: DASHBOARD ================= -->
+        <section id="page-dashboard" class="view-page hidden space-y-6">
+            <div class="text-center max-w-xl mx-auto space-y-2">
+                <span class="bg-indigo-100 text-indigo-700 font-extrabold text-xs px-3 py-1 rounded-full uppercase">Pusat Misi</span>
+                <h2 class="text-3xl font-black text-slate-800">Ruang Kendali Detektif</h2>
+                <p class="text-slate-500 font-semibold">Pilih salah satu menu di bawah ini untuk memulai petualanganmu!</p>
+            </div>
+
+            <!-- Dashboard Grid Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pt-4">
+                
+                <!-- Card 1: Materi -->
+                <div onclick="navTo('materi')" class="group bg-white rounded-3xl p-6 shadow-xl hover:shadow-2xl border-4 border-transparent hover:border-purple-500 transition duration-300 cursor-pointer flex flex-col justify-between relative overflow-hidden transform hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-purple-100 text-purple-600 rounded-2xl flex items-center justify-center text-3xl mb-4 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-book-open-reader"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold text-purple-500 uppercase tracking-wider">Modul 1</span>
+                        <h3 class="text-2xl font-black text-slate-800 mb-2">Materi Peluang</h3>
+                        <p class="text-sm text-slate-500 font-semibold leading-relaxed">Pelajari konsep kepastian, kemungkinan, serta rumus peluang sederhana.</p>
+                    </div>
+                    <div class="mt-6 flex items-center justify-between text-purple-600 font-black text-sm">
+                        <span>Buka Materi</span>
+                        <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition"></i>
+                    </div>
+                </div>
+
+                <!-- Card 2: Simulator -->
+                <div onclick="navTo('simulator')" class="group bg-white rounded-3xl p-6 shadow-xl hover:shadow-2xl border-4 border-transparent hover:border-blue-500 transition duration-300 cursor-pointer flex flex-col justify-between relative overflow-hidden transform hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center text-3xl mb-4 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-flask"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold text-blue-500 uppercase tracking-wider">Modul 2</span>
+                        <h3 class="text-2xl font-black text-slate-800 mb-2">Lab Simulator</h3>
+                        <p class="text-sm text-slate-500 font-semibold leading-relaxed">Lakukan eksperimen acak dengan koin, dadu, dan kelereng interaktif!</p>
+                    </div>
+                    <div class="mt-6 flex items-center justify-between text-blue-600 font-black text-sm">
+                        <span>Mulai Eksperimen</span>
+                        <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition"></i>
+                    </div>
+                </div>
+
+                <!-- Card 3: Gim Edukatif -->
+                <div onclick="navTo('game')" class="group bg-white rounded-3xl p-6 shadow-xl hover:shadow-2xl border-4 border-transparent hover:border-pink-500 transition duration-300 cursor-pointer flex flex-col justify-between relative overflow-hidden transform hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-pink-100 text-pink-600 rounded-2xl flex items-center justify-center text-3xl mb-4 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-gamepad"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold text-pink-500 uppercase tracking-wider">Modul 3</span>
+                        <h3 class="text-2xl font-black text-slate-800 mb-2">Gim Edukatif</h3>
+                        <p class="text-sm text-slate-500 font-semibold leading-relaxed">Tantang dirimu memecahkan kasus-kasus peluang dalam kuis seru!</p>
+                    </div>
+                    <div class="mt-6 flex items-center justify-between text-pink-600 font-black text-sm">
+                        <span>Mainkan Gim</span>
+                        <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition"></i>
+                    </div>
+                </div>
+
+                <!-- Card 4: Papan Skor -->
+                <div onclick="navTo('score')" class="group bg-white rounded-3xl p-6 shadow-xl hover:shadow-2xl border-4 border-transparent hover:border-amber-500 transition duration-300 cursor-pointer flex flex-col justify-between relative overflow-hidden transform hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center text-3xl mb-4 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-trophy"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold text-amber-500 uppercase tracking-wider">Modul 4</span>
+                        <h3 class="text-2xl font-black text-slate-800 mb-2">Papan Skor</h3>
+                        <p class="text-sm text-slate-500 font-semibold leading-relaxed">Lihat rekor nilai dan daftar Detektif Peluang terbaik.</p>
+                    </div>
+                    <div class="mt-6 flex items-center justify-between text-amber-600 font-black text-sm">
+                        <span>Lihat Peringkat</span>
+                        <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition"></i>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= PAGE 3: MATERI ================= -->
+        <section id="page-materi" class="view-page hidden space-y-6">
+            <!-- Header Materi -->
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-purple-900 text-white p-6 rounded-3xl shadow-xl">
+                <div>
+                    <span class="bg-purple-700 text-purple-200 text-xs font-bold px-3 py-1 rounded-full">Ruang Belajar</span>
+                    <h2 class="text-3xl font-black mt-1">Konsep & Teori Peluang</h2>
+                    <p class="text-purple-200 text-sm font-semibold">Pahami dasar-dasar peluang untuk menjadi detektif hebat!</p>
+                </div>
+                <div class="flex items-center gap-2 bg-purple-800 p-1.5 rounded-2xl overflow-x-auto">
+                    <button onclick="switchMateriTab('tab1')" id="btn-tab1" class="materi-tab-btn bg-purple-600 text-white font-bold text-sm px-4 py-2 rounded-xl transition">1. Skala Kepastian</button>
+                    <button onclick="switchMateriTab('tab2')" id="btn-tab2" class="materi-tab-btn text-purple-200 hover:text-white font-bold text-sm px-4 py-2 rounded-xl transition">2. Ruang Sampel</button>
+                    <button onclick="switchMateriTab('tab3')" id="btn-tab3" class="materi-tab-btn text-purple-200 hover:text-white font-bold text-sm px-4 py-2 rounded-xl transition">3. Rumus Peluang</button>
+                </div>
+            </div>
+
+            <!-- Tab 1: Skala Kepastian -->
+            <div id="materi-tab1" class="materi-content space-y-6">
+                <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-lg border border-slate-200">
+                    <h3 class="text-2xl font-black text-slate-800 mb-4 flex items-center gap-3">
+                        <span class="bg-purple-100 text-purple-600 p-2 rounded-xl text-xl"><i class="fa-solid fa-scale-balanced"></i></span>
+                        Skala Kepastian Kejadian
+                    </h3>
+                    <p class="text-slate-600 font-semibold mb-6">
+                        Dalam kehidupan sehari-hari, ada peristiwa yang <b>pasti terjadi</b>, <b>mungkin terjadi</b>, dan <b>tidak mungkin terjadi</b>. Nilai peluang dinyatakan dari angka <b>0</b> sampai <b>1</b>.
+                    </p>
+
+                    <!-- Dynamic Scale Visualizer -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-6">
+                        <div class="bg-red-50 border-2 border-red-200 rounded-2xl p-5 text-center hover:scale-105 transition">
+                            <div class="w-12 h-12 bg-red-500 text-white rounded-full flex items-center justify-center font-black text-xl mx-auto mb-3">0</div>
+                            <h4 class="font-black text-lg text-red-700">TIDAK MUNGKIN</h4>
+                            <p class="text-xs text-red-600 font-bold mt-1">Peluang = 0</p>
+                            <p class="text-sm text-slate-600 mt-3 bg-white p-3 rounded-xl border border-red-100 font-medium">
+                                <i>Contoh:</i> Matahari terbit dari arah Barat.
+                            </p>
+                        </div>
+
+                        <div class="bg-amber-50 border-2 border-amber-200 rounded-2xl p-5 text-center hover:scale-105 transition">
+                            <div class="w-12 h-12 bg-amber-500 text-white rounded-full flex items-center justify-center font-black text-xl mx-auto mb-3">½</div>
+                            <h4 class="font-black text-lg text-amber-700">MUNGKIN TERJADI</h4>
+                            <p class="text-xs text-amber-600 font-bold mt-1">Peluang antara 0 & 1</p>
+                            <p class="text-sm text-slate-600 mt-3 bg-white p-3 rounded-xl border border-amber-100 font-medium">
+                                <i>Contoh:</i> Muncul angka 5 saat melempar dadu.
+                            </p>
+                        </div>
+
+                        <div class="bg-emerald-50 border-2 border-emerald-200 rounded-2xl p-5 text-center hover:scale-105 transition">
+                            <div class="w-12 h-12 bg-emerald-500 text-white rounded-full flex items-center justify-center font-black text-xl mx-auto mb-3">1</div>
+                            <h4 class="font-black text-lg text-emerald-700">PASTI TERJADI</h4>
+                            <p class="text-xs text-emerald-600 font-bold mt-1">Peluang = 1</p>
+                            <p class="text-sm text-slate-600 mt-3 bg-white p-3 rounded-xl border border-emerald-100 font-medium">
+                                <i>Contoh:</i> Manusia membutuhkan air untuk hidup.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 2: Ruang Sampel & Titik Sampel -->
+            <div id="materi-tab2" class="materi-content hidden space-y-6">
+                <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-lg border border-slate-200">
+                    <h3 class="text-2xl font-black text-slate-800 mb-4 flex items-center gap-3">
+                        <span class="bg-blue-100 text-blue-600 p-2 rounded-xl text-xl"><i class="fa-solid fa-shapes"></i></span>
+                        Ruang Sampel \(S\) dan Titik Sampel \(n(S)\)
+                    </h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200">
+                            <h4 class="font-black text-indigo-900 text-lg mb-2">1. Pada Lemparan Koin 🪙</h4>
+                            <p class="text-sm text-slate-600 font-semibold mb-3">Sebuah koin memiliki 2 sisi:</p>
+                            <ul class="text-sm space-y-2 font-medium">
+                                <li class="bg-white p-2 rounded-lg border">● Sisi <b>Angka (A)</b> dan Sisi <b>Gambar (G)</b></li>
+                                <li class="bg-white p-2 rounded-lg border">● Ruang Sampel \(S = \{A, G\}\)</li>
+                                <li class="bg-indigo-50 p-2 rounded-lg border border-indigo-200 text-indigo-700 font-bold">● Total Kemungkinan \(n(S) = 2\)</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200">
+                            <h4 class="font-black text-indigo-900 text-lg mb-2">2. Pada Dadu 🎲</h4>
+                            <p class="text-sm text-slate-600 font-semibold mb-3">Sebuah dadu memiliki 6 mata dadu:</p>
+                            <ul class="text-sm space-y-2 font-medium">
+                                <li class="bg-white p-2 rounded-lg border">● Mata dadu: <b>1, 2, 3, 4, 5, 6</b></li>
+                                <li class="bg-white p-2 rounded-lg border">● Ruang Sampel \(S = \{1, 2, 3, 4, 5, 6\}\)</li>
+                                <li class="bg-indigo-50 p-2 rounded-lg border border-indigo-200 text-indigo-700 font-bold">● Total Kemungkinan \(n(S) = 6\)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 3: Rumus Peluang -->
+            <div id="materi-tab3" class="materi-content hidden space-y-6">
+                <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-lg border border-slate-200">
+                    <h3 class="text-2xl font-black text-slate-800 mb-4 flex items-center gap-3">
+                        <span class="bg-pink-100 text-pink-600 p-2 rounded-xl text-xl"><i class="fa-solid fa-calculator"></i></span>
+                        Rumus Rahasia Peluang
+                    </h3>
+
+                    <div class="bg-gradient-to-r from-amber-500 to-orange-500 text-white p-6 rounded-2xl text-center shadow-md mb-6">
+                        <p class="text-xs uppercase tracking-widest font-extrabold mb-2 text-amber-100">RUMUS UTAMA DETEKTIF</p>
+                        <div class="text-2xl sm:text-3xl font-black my-2 tracking-wide">
+                            $$P(A) = \frac{n(A)}{n(S)}$$
+                        </div>
+                        <p class="text-sm font-semibold text-amber-100 mt-2">
+                            Peluang Kejadian A = (Banyaknya kejadian A yang diharapkan) ÷ (Total seluruh kemungkinan)
+                        </p>
+                    </div>
+
+                    <!-- Contoh Kasus -->
+                    <div class="space-y-4">
+                        <h4 class="font-black text-slate-800 text-lg">💡 Contoh Kasus Kelereng:</h4>
+                        <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-3 font-semibold text-sm">
+                            <p>Di dalam kantong ada <b>3 kelereng Merah</b> dan <b>2 kelereng Biru</b>.</p>
+                            <p class="text-indigo-600">Berapa peluang terambil kelereng Merah secara acak?</p>
+                            <hr>
+                            <div class="space-y-1 text-slate-700">
+                                <p>● \(n(A)\) = Banyak kelereng Merah = <b>3</b></p>
+                                <p>● \(n(S)\) = Total kelereng = \(3 + 2 = \mathbf{5}\)</p>
+                                <p class="text-emerald-600 font-bold text-base mt-2">
+                                    $$P(\text{Merah}) = \frac{n(A)}{n(S)} = \frac{3}{5}$$
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ================= PAGE 4: SIMULATOR ================= -->
+        <section id="page-simulator" class="view-page hidden space-y-6">
+            <!-- Simulator Tabs -->
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white p-4 rounded-3xl shadow-md border border-slate-200">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center font-bold text-xl">🧪</div>
+                    <div>
+                        <h2 class="text-xl font-black text-slate-800">Lab Eksperimen Peluang</h2>
+                        <p class="text-xs text-slate-500 font-bold">Buktikan teori peluang dengan simulasi acak!</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center bg-slate-100 p-1 rounded-2xl w-full sm:w-auto">
+                    <button onclick="switchSimMode('coin')" id="btn-sim-coin" class="sim-tab-btn flex-1 sm:flex-none bg-blue-600 text-white font-bold text-sm px-4 py-2 rounded-xl transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-coins"></i> Koin
+                    </button>
+                    <button onclick="switchSimMode('dice')" id="btn-sim-dice" class="sim-tab-btn flex-1 sm:flex-none text-slate-600 hover:text-slate-900 font-bold text-sm px-4 py-2 rounded-xl transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-dice"></i> Dadu
+                    </button>
+                    <button onclick="switchSimMode('marble')" id="btn-sim-marble" class="sim-tab-btn flex-1 sm:flex-none text-slate-600 hover:text-slate-900 font-bold text-sm px-4 py-2 rounded-xl transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-[#000] fa-circle"></i> Kelereng
+                    </button>
+                </div>
+            </div>
+
+            <!-- SIMULATOR 1: KOIN -->
+            <div id="sim-mode-coin" class="sim-box space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Area Lempar Koin -->
+                    <div class="bg-white rounded-3xl p-6 shadow-lg border border-slate-200 flex flex-col items-center justify-center text-center">
+                        <span class="text-xs font-extrabold text-blue-600 bg-blue-50 px-3 py-1 rounded-full uppercase mb-2">Simulasi Lempar Koin</span>
+                        
+                        <!-- Last Result Badge -->
+                        <div id="coin-last-badge" class="h-8 text-sm font-black text-slate-600 flex items-center justify-center gap-1.5">
+                            <span class="text-xs font-bold text-slate-400">Siap melempar koin...</span>
+                        </div>
+
+                        <!-- 3D Coin Element -->
+                        <div class="perspective my-4">
+                            <div id="coin-element" class="w-36 h-36 rounded-full bg-gradient-to-tr from-yellow-400 via-amber-300 to-yellow-500 border-4 border-yellow-600 shadow-xl flex flex-col items-center justify-center text-amber-950 font-black transform transition-all duration-300">
+                                <i id="coin-face-icon" class="fa-solid fa-coins text-3xl mb-1"></i>
+                                <span id="coin-face-text" class="text-xl tracking-wider">ANGKA</span>
+                            </div>
+                        </div>
+
+                        <!-- History Badges -->
+                        <div class="w-full mb-3">
+                            <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1">Riwayat Terakhir:</p>
+                            <div id="coin-history-container" class="flex gap-1.5 justify-center min-h-[28px] items-center flex-wrap">
+                                <span class="text-xs text-slate-400 font-semibold italic">Belum ada pelemparan</span>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap gap-2 justify-center mt-2">
+                            <button id="btn-coin-1" onclick="flipCoin(1)" class="bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-black px-5 py-3 rounded-2xl shadow-lg transition active:scale-95 flex items-center gap-2">
+                                <i class="fa-solid fa-hand-pointer"></i> Lempar 1x
+                            </button>
+                            <button id="btn-coin-10" onclick="flipCoin(10)" class="bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white font-black px-5 py-3 rounded-2xl shadow-lg transition active:scale-95">
+                                Lempar 10x 🚀
+                            </button>
+                            <button onclick="resetCoinStats()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold px-4 py-3 rounded-2xl transition" title="Reset Data">
+                                <i class="fa-solid fa-rotate-left"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Statistik Koin -->
+                    <div class="bg-white rounded-3xl p-6 shadow-lg border border-slate-200 flex flex-col justify-between">
+                        <h3 class="font-black text-slate-800 text-lg mb-4">📊 Data Hasil Percobaan</h3>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between text-sm font-bold mb-1">
+                                    <span class="text-amber-600">Angka (A)</span>
+                                    <span id="coin-head-count">0 Kali (0%)</span>
+                                </div>
+                                <div class="w-full bg-slate-100 rounded-full h-4 overflow-hidden">
+                                    <div id="bar-coin-head" class="bg-amber-400 h-full w-0 transition-all duration-300"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between text-sm font-bold mb-1">
+                                    <span class="text-blue-600">Gambar (G)</span>
+                                    <span id="coin-tail-count">0 Kali (0%)</span>
+                                </div>
+                                <div class="w-full bg-slate-100 rounded-full h-4 overflow-hidden">
+                                    <div id="bar-coin-tail" class="bg-blue-500 h-full w-0 transition-all duration-300"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 mt-6 flex justify-between items-center">
+                            <span class="text-sm font-bold text-slate-600">Total Pelemparan:</span>
+                            <span id="coin-total-count" class="text-2xl font-black text-indigo-600">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SIMULATOR 2: DADU -->
+            <div id="sim-mode-dice" class="sim-box hidden space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Area Lempar Dadu -->
+                    <div class="bg-white rounded-3xl p-6 shadow-lg border border-slate-200 flex flex-col items-center justify-center text-center">
+                        <span class="text-xs font-extrabold text-purple-600 bg-purple-50 px-3 py-1 rounded-full uppercase mb-4">Simulasi Lempar Dadu (1-6)</span>
+                        
+                        <!-- Dice Visual Element -->
+                        <div class="my-6">
+                            <div id="dice-element" class="w-32 h-32 rounded-3xl bg-gradient-to-br from-red-500 to-rose-600 text-white border-4 border-rose-700 shadow-2xl flex items-center justify-center text-6xl font-black">
+                                🎲
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap gap-2 justify-center mt-4">
+                            <button onclick="rollDice(1)" class="bg-purple-600 hover:bg-purple-700 text-white font-black px-5 py-3 rounded-2xl shadow-lg transition active:scale-95 flex items-center gap-2">
+                                <i class="fa-solid fa-dice-five"></i> Lempar 1x
+                            </button>
+                            <button onclick="rollDice(12)" class="bg-indigo-600 hover:bg-indigo-700 text-white font-black px-5 py-3 rounded-2xl shadow-lg transition active:scale-95">
+                                Lempar 12x ⚡
+                            </button>
+                            <button onclick="resetDiceStats()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold px-4 py-3 rounded-2xl transition">
+                                <i class="fa-solid fa-rotate-left"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Statistik Dadu -->
+                    <div class="bg-white rounded-3xl p-6 shadow-lg border border-slate-200">
+                        <h3 class="font-black text-slate-800 text-lg mb-4">📊 Frekuensi Kemunculan Dadu</h3>
+                        <div id="dice-bars-container" class="space-y-2.5">
+                            <!-- Dynamic Bars 1 to 6 generated by JS -->
+                        </div>
+                        <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 mt-4 flex justify-between items-center text-sm font-bold">
+                            <span>Total Lemparan Dadu:</span>
+                            <span id="dice-total-count" class="text-xl font-black text-purple-600">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SIMULATOR 3: KELERENG -->
+            <div id="sim-mode-marble" class="sim-box hidden space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Area Ambil Kelereng -->
+                    <div class="bg-white rounded-3xl p-6 shadow-lg border border-slate-200 flex flex-col items-center justify-center text-center">
+                        <span class="text-xs font-extrabold text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full uppercase mb-4">Kantong Kelereng Ajaib</span>
+                        
+                        <!-- Bag Visualizer -->
+                        <div class="relative w-40 h-40 bg-amber-100 rounded-b-full border-4 border-amber-800 shadow-inner flex flex-wrap items-center justify-center p-4 gap-2 my-4">
+                            <span class="absolute -top-4 bg-amber-800 text-white text-xs px-3 py-0.5 rounded-full font-bold">Kantong</span>
+                            <div id="marble-bag-visual" class="flex flex-wrap gap-1.5 justify-center">
+                                <!-- Marbles will be rendered here -->
+                            </div>
+                        </div>
+
+                        <!-- Drawn Marble Result -->
+                        <div id="drawn-marble-result" class="h-10 text-sm font-black text-slate-700 flex items-center gap-2">
+                            <span>Klik tombol untuk mengambil!</span>
+                        </div>
+
+                        <div class="flex gap-2 mt-4">
+                            <button onclick="drawMarble()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-black px-6 py-3 rounded-2xl shadow-lg transition active:scale-95 flex items-center gap-2">
+                                🔮 Ambil 1 Kelereng
+                            </button>
+                            <button onclick="resetMarbleStats()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold px-4 py-3 rounded-2xl transition">
+                                <i class="fa-solid fa-rotate-left"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Pengaturan & Hasil Kelereng -->
+                    <div class="bg-white rounded-3xl p-6 shadow-lg border border-slate-200 flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-black text-slate-800 text-lg mb-2">⚙️ Isi Kantong & Statistik</h3>
+                            <p class="text-xs text-slate-500 font-bold mb-4">Kelereng di dalam kantong: 4 Merah, 3 Biru, 3 Hijau (Total: 10)</p>
+                            
+                            <div class="space-y-3">
+                                <div>
+                                    <div class="flex justify-between text-xs font-bold mb-1">
+                                        <span class="text-red-600">🔴 Merah (Peluang Teori: 4/10 = 40%)</span>
+                                        <span id="marble-red-count">0 kali</span>
+                                    </div>
+                                    <div class="w-full bg-slate-100 rounded-full h-3">
+                                        <div id="bar-marble-red" class="bg-red-500 h-full w-0 rounded-full transition-all"></div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="flex justify-between text-xs font-bold mb-1">
+                                        <span class="text-blue-600">🔵 Biru (Peluang Teori: 3/10 = 30%)</span>
+                                        <span id="marble-blue-count">0 kali</span>
+                                    </div>
+                                    <div class="w-full bg-slate-100 rounded-full h-3">
+                                        <div id="bar-marble-blue" class="bg-blue-500 h-full w-0 rounded-full transition-all"></div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="flex justify-between text-xs font-bold mb-1">
+                                        <span class="text-emerald-600">🟢 Hijau (Peluang Teori: 3/10 = 30%)</span>
+                                        <span id="marble-green-count">0 kali</span>
+                                    </div>
+                                    <div class="w-full bg-slate-100 rounded-full h-3">
+                                        <div id="bar-marble-green" class="bg-emerald-500 h-full w-0 rounded-full transition-all"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 mt-4 flex justify-between items-center text-sm font-bold">
+                            <span>Total Pengambilan:</span>
+                            <span id="marble-total-count" class="text-xl font-black text-emerald-600">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ================= PAGE 5: GIM EDUKATIF ================= -->
+        <section id="page-game" class="view-page hidden space-y-6">
+            
+            <!-- Game Start Modal Screen -->
+            <div id="game-start-screen" class="bg-white/95 backdrop-blur-md rounded-3xl p-6 sm:p-8 shadow-2xl border-4 border-pink-400 text-center max-w-xl mx-auto space-y-6">
+                <div class="w-20 h-20 bg-gradient-to-tr from-pink-500 to-rose-400 text-white rounded-3xl flex items-center justify-center text-4xl mx-auto shadow-lg animate-bounce-slow">
+                    <i class="fa-solid fa-gamepad"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl sm:text-3xl font-black text-slate-800">Detektif Mario Jump & Bump 🍄⭐</h2>
+                    <p class="text-slate-500 font-semibold text-sm mt-1">Lompati rintangan, sundul Blok Bintang untuk memunculkan Soal Peluang!</p>
+                </div>
+
+                <!-- Mode Selection -->
+                <div class="grid grid-cols-2 gap-3 bg-slate-100 p-1.5 rounded-2xl">
+                    <button type="button" id="mode-solo-btn" onclick="selectGameMode('solo')" class="py-2.5 px-3 rounded-xl font-black text-sm transition bg-white text-pink-600 shadow-sm flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-user"></i> 1 Pemain (Solo)
+                    </button>
+                    <button type="button" id="mode-duel-btn" onclick="selectGameMode('duel')" class="py-2.5 px-3 rounded-xl font-black text-sm transition text-slate-600 hover:bg-white/50 flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-user-group"></i> 2 Pemain (DUEL ⚔️)
+                    </button>
+                </div>
+
+                <!-- Mascot Character Selection -->
+                <div class="bg-indigo-50/80 p-4 rounded-2xl border border-indigo-200 text-left space-y-3">
+                    <span class="text-xs font-black text-indigo-800 uppercase tracking-wider block">🎭 Pilih Maskot Pemain:</span>
+                    
+                    <!-- P1 Mascot Selector -->
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 mb-1.5">Karakter Pemain 1 (P1):</label>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button type="button" onclick="selectMascot('p1', 'bencana')" id="mascot-p1-bencana" class="p2 rounded-xl border-2 border-indigo-600 bg-indigo-100/50 flex items-center gap-2 text-xs font-black text-indigo-900 transition">
+                                <img src="https://i.ibb.co/Xr1yfCFm/Maskot-Siaga-Bencana-Ceria.png" class="w-8 h-8 object-contain" alt="Siaga Bencana">
+                                <span>Siaga Bencana</span>
+                            </button>
+                            <button type="button" onclick="selectMascot('p1', 'tambang')" id="mascot-p1-tambang" class="p2 rounded-xl border-2 border-transparent bg-white flex items-center gap-2 text-xs font-bold text-slate-600 transition">
+                                <img src="https://i.ibb.co/C5BmTD7D/Maskot-Penjelajah-Tambang-Ceria.png" class="w-8 h-8 object-contain" alt="Penjelajah Tambang">
+                                <span>Penjelajah Tambang</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- P2 Mascot Selector (Duel Mode) -->
+                    <div id="p2-mascot-box" class="hidden pt-2 border-t border-indigo-100">
+                        <label class="block text-xs font-bold text-slate-600 mb-1.5">Karakter Pemain 2 (P2):</label>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button type="button" onclick="selectMascot('p2', 'bencana')" id="mascot-p2-bencana" class="p2 rounded-xl border-2 border-transparent bg-white flex items-center gap-2 text-xs font-bold text-slate-600 transition">
+                                <img src="https://i.ibb.co/Xr1yfCFm/Maskot-Siaga-Bencana-Ceria.png" class="w-8 h-8 object-contain" alt="Siaga Bencana">
+                                <span>Siaga Bencana</span>
+                            </button>
+                            <button type="button" onclick="selectMascot('p2', 'tambang')" id="mascot-p2-tambang" class="p2 rounded-xl border-2 border-rose-600 bg-rose-100/50 flex items-center gap-2 text-xs font-black text-rose-900 transition">
+                                <img src="https://i.ibb.co/C5BmTD7D/Maskot-Penjelajah-Tambang-Ceria.png" class="w-8 h-8 object-contain" alt="Penjelajah Tambang">
+                                <span>Penjelajah Tambang</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-3">
+                    <div id="p1-input-box">
+                        <label class="block text-left text-xs font-bold text-slate-500 mb-1">Nama Pemain 1 (Detektif Biru):</label>
+                        <input type="text" id="player-name-input" placeholder="Nama Pemain 1..." class="w-full px-4 py-3 rounded-2xl border-2 border-slate-300 focus:border-pink-500 focus:outline-none font-bold text-slate-800 text-center">
+                    </div>
+                    <div id="p2-input-box" class="hidden">
+                        <label class="block text-left text-xs font-bold text-slate-500 mb-1">Nama Pemain 2 (Detektif Merah):</label>
+                        <input type="text" id="player2-name-input" placeholder="Nama Pemain 2..." class="w-full px-4 py-3 rounded-2xl border-2 border-slate-300 focus:border-rose-500 focus:outline-none font-bold text-slate-800 text-center">
+                    </div>
+                </div>
+
+                <div class="bg-amber-50 p-3.5 rounded-2xl border border-amber-200 text-left space-y-1.5 text-xs font-bold text-amber-900">
+                    <p class="flex items-center gap-1.5"><i class="fa-solid fa-star text-amber-500"></i> Ada 5 Blok Bintang berisi Soal Peluang (Pilihan Ganda & Isian Singkat).</p>
+                    <p class="flex items-center gap-1.5"><i class="fa-solid fa-fire text-rose-500"></i> Termasuk <b>Soal HOTS</b> dengan kasus matematika seru!</p>
+                    <p class="flex items-center gap-1.5" id="control-hint-text"><i class="fa-solid fa-keyboard"></i> Kontrol P1: Gunakan [A/D] Jalan, [W/Spasi] Lompat / Tombol Sentuh.</p>
+                </div>
+
+                <button onclick="startGame()" class="w-full bg-pink-600 hover:bg-pink-700 text-white font-black text-lg py-4 rounded-2xl shadow-xl transition active:scale-95 flex items-center justify-center gap-2">
+                    <span>MULAI PERMAINAN!</span>
+                    <i class="fa-solid fa-play"></i>
+                </button>
+            </div>
+
+            <!-- Active Mario Canvas Arena Screen -->
+            <div id="game-quiz-screen" class="hidden max-w-4xl mx-auto space-y-4">
+                <!-- Status Bar -->
+                <div class="bg-white p-4 rounded-2xl shadow-md flex flex-wrap justify-between items-center border border-slate-200 gap-2">
+                    <div class="flex items-center gap-4">
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-full bg-blue-500 inline-block"></span>
+                            <span id="display-player-name" class="font-black text-slate-800 text-sm">P1</span>:
+                            <span id="game-score-p1" class="text-amber-600 font-extrabold text-sm">0 Poin</span>
+                        </div>
+                        <div id="p2-score-badge" class="hidden flex items-center gap-2 border-l pl-4 border-slate-200">
+                            <span class="w-3 h-3 rounded-full bg-rose-500 inline-block"></span>
+                            <span id="display-player2-name" class="font-black text-slate-800 text-sm">P2</span>:
+                            <span id="game-score-p2" class="text-amber-600 font-extrabold text-sm">0 Poin</span>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-3 text-xs font-bold text-slate-500">
+                        <span class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-xl font-black">
+                            <i class="fa-solid fa-star text-amber-500"></i> Sisa Bintang: <span id="stars-left-count">5</span>/5
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Mario Canvas Container -->
+                <div class="relative bg-slate-900 rounded-3xl overflow-hidden shadow-2xl border-4 border-slate-700">
+                    <canvas id="mario-canvas" width="800" height="400" class="w-full h-auto block bg-sky-300"></canvas>
+                    
+                    <!-- Touch Controls for PID / HP -->
+                    <div class="p-3 bg-slate-800/90 backdrop-blur-md flex flex-wrap justify-between items-center text-white gap-2">
+                        <!-- P1 Touch Controls -->
+                        <div class="flex items-center gap-2">
+                            <span class="text-[10px] font-black bg-blue-600 px-2.5 py-1 rounded-md">P1 (Biru)</span>
+                            <button type="button" onmousedown="setKey('a', true)" onmouseup="setKey('a', false)" onmouseleave="setKey('a', false)" ontouchstart="event.preventDefault(); setKey('a', true)" ontouchend="event.preventDefault(); setKey('a', false)" class="w-12 h-12 bg-slate-700 hover:bg-slate-600 active:bg-blue-600 rounded-xl font-black text-xl flex items-center justify-center select-none shadow">⬅️</button>
+                            <button type="button" onmousedown="setKey('d', true)" onmouseup="setKey('d', false)" onmouseleave="setKey('d', false)" ontouchstart="event.preventDefault(); setKey('d', true)" ontouchend="event.preventDefault(); setKey('d', false)" class="w-12 h-12 bg-slate-700 hover:bg-slate-600 active:bg-blue-600 rounded-xl font-black text-xl flex items-center justify-center select-none shadow">➡️</button>
+                            <button type="button" onmousedown="setKey('w', true)" onmouseup="setKey('w', false)" onmouseleave="setKey('w', false)" ontouchstart="event.preventDefault(); setKey('w', true)" ontouchend="event.preventDefault(); setKey('w', false)" class="w-16 h-12 bg-blue-600 hover:bg-blue-500 rounded-xl font-black text-xs flex items-center justify-center active:scale-95 shadow-md select-none">LOMPAT ⬆️</button>
+                        </div>
+
+                        <!-- P2 Touch Controls (Visible in Duel Mode) -->
+                        <div id="p2-touch-controls" class="hidden flex items-center gap-2">
+                            <span class="text-[10px] font-black bg-rose-600 px-2.5 py-1 rounded-md">P2 (Merah)</span>
+                            <button type="button" onmousedown="setKey('ArrowLeft', true)" onmouseup="setKey('ArrowLeft', false)" onmouseleave="setKey('ArrowLeft', false)" ontouchstart="event.preventDefault(); setKey('ArrowLeft', true)" ontouchend="event.preventDefault(); setKey('ArrowLeft', false)" class="w-12 h-12 bg-slate-700 hover:bg-slate-600 active:bg-rose-600 rounded-xl font-black text-xl flex items-center justify-center select-none shadow">⬅️</button>
+                            <button type="button" onmousedown="setKey('ArrowRight', true)" onmouseup="setKey('ArrowRight', false)" onmouseleave="setKey('ArrowRight', false)" ontouchstart="event.preventDefault(); setKey('ArrowRight', true)" ontouchend="event.preventDefault(); setKey('ArrowRight', false)" class="w-12 h-12 bg-slate-700 hover:bg-slate-600 active:bg-rose-600 rounded-xl font-black text-xl flex items-center justify-center select-none shadow">➡️</button>
+                            <button type="button" onmousedown="setKey('ArrowUp', true)" onmouseup="setKey('ArrowUp', false)" onmouseleave="setKey('ArrowUp', false)" ontouchstart="event.preventDefault(); setKey('ArrowUp', true)" ontouchend="event.preventDefault(); setKey('ArrowUp', false)" class="w-16 h-12 bg-rose-600 hover:bg-rose-500 rounded-xl font-black text-xs flex items-center justify-center active:scale-95 shadow-md select-none">LOMPAT ⬆️</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Soal (Triggered on Bumping Star Block) -->
+            <div id="question-modal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+                <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-xl w-full shadow-2xl border-4 border-amber-400 space-y-5 animate-scale">
+                    <div class="flex justify-between items-center border-b pb-3">
+                        <div class="flex items-center gap-2">
+                            <span class="text-2xl">⭐</span>
+                            <div>
+                                <span id="modal-player-tag" class="bg-blue-600 text-white text-xs font-black px-2.5 py-0.5 rounded-full">Giliran P1</span>
+                                <h4 class="font-black text-slate-800 text-lg leading-none mt-1">Tantangan Soal Peluang!</h4>
+                            </div>
+                        </div>
+                        <div class="bg-rose-100 text-rose-700 px-3 py-1 rounded-xl text-xs font-black">
+                            <i class="fa-solid fa-clock"></i> <span id="modal-timer">30s</span>
+                        </div>
+                    </div>
+
+                    <!-- HOTS Stimulus Card (If present) -->
+                    <div id="modal-stimulus-card" class="hidden bg-amber-50 p-4 rounded-2xl border border-amber-200 text-xs font-semibold text-amber-900 leading-relaxed">
+                        <span class="bg-amber-200 text-amber-900 text-[10px] font-black px-2 py-0.5 rounded uppercase tracking-wider block w-max mb-1">🔥 Kasus HOTS Detektif</span>
+                        <p id="modal-stimulus-text"></p>
+                    </div>
+
+                    <h3 id="modal-question-text" class="text-base sm:text-lg font-black text-slate-800 leading-snug">
+                        Pertanyaan...
+                    </h3>
+
+                    <!-- PG Options Container -->
+                    <div id="modal-pg-options" class="grid grid-cols-1 gap-2.5">
+                        <!-- Rendered by JS -->
+                    </div>
+
+                    <!-- Isian Input Container -->
+                    <div id="modal-isian-container" class="hidden space-y-3">
+                        <input type="text" id="modal-isian-input" placeholder="Ketik jawabanmu di sini (Contoh: 1/2 atau 0.5)..." class="w-full px-4 py-3 rounded-2xl border-2 border-slate-300 focus:border-amber-500 focus:outline-none font-bold text-slate-800 text-center">
+                        <button onclick="submitIsianAnswer()" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-black py-3.5 rounded-2xl shadow-md transition active:scale-95">
+                            Kirim Jawaban 🚀
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Result Screen -->
+            <div id="game-result-screen" class="hidden bg-white rounded-3xl p-8 shadow-2xl border-4 border-emerald-400 text-center max-w-xl mx-auto space-y-6">
+                <div class="w-24 h-24 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-5xl mx-auto shadow-inner animate-bounce-slow">
+                    🏆
+                </div>
+                <div>
+                    <h2 class="text-3xl font-black text-slate-800" id="result-title">Misi Selesai!</h2>
+                    <p class="text-slate-500 font-semibold text-sm mt-1" id="result-subtitle">Hasil Petualangan Detektif Peluang:</p>
+                </div>
+
+                <div class="bg-emerald-50 p-6 rounded-3xl border border-emerald-200 space-y-3">
+                    <div id="result-score-display" class="space-y-1">
+                        <!-- Rendered by JS -->
+                    </div>
+                    <p id="final-feedback" class="text-sm font-bold text-slate-600 pt-2 border-t border-emerald-200">Luar biasa! Kamu adalah Detektif Matematika sejati!</p>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <button onclick="saveScoreAndNav()" class="flex-1 bg-amber-500 hover:bg-amber-600 text-white font-black py-3.5 rounded-2xl shadow-lg transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-trophy"></i> Simpan Skor
+                    </button>
+                    <button onclick="resetGameScreen()" class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-700 font-black py-3.5 rounded-2xl transition">
+                        Main Lagi 🔄
+                    </button>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ================= PAGE 6: PAPAN SKOR ================= -->
+        <section id="page-score" class="view-page hidden space-y-6">
+            <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-slate-200 space-y-6">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b pb-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center text-2xl font-black">
+                            🏆
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-black text-slate-800">Papan Skor Detektif</h2>
+                            <p class="text-xs text-slate-500 font-bold">Daftar Detektif Peluang dengan Nilai Terbaik</p>
+                        </div>
+                    </div>
+
+                    <button onclick="clearLeaderboard()" class="text-xs font-bold text-rose-500 hover:text-rose-700 bg-rose-50 px-3 py-2 rounded-xl transition self-start sm:self-auto">
+                        <i class="fa-solid fa-trash-can"></i> Bersihkan Skor
+                    </button>
+                </div>
+
+                <!-- Leaderboard Table -->
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-100 text-slate-500 uppercase text-xs font-extrabold tracking-wider">
+                                <th class="p-4 rounded-l-2xl">Peringkat</th>
+                                <th class="p-4">Nama Detektif</th>
+                                <th class="p-4">Skor</th>
+                                <th class="p-4 rounded-r-2xl">Tanggal</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leaderboard-body" class="divide-y divide-slate-100 font-semibold text-sm">
+                            <!-- Rows generated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="text-center pt-4">
+                    <button onclick="navTo('game')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-black px-6 py-3 rounded-2xl shadow-md transition">
+                        🎮 Mainkan Gim untuk Masuk Papan Skor!
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-slate-200 py-4 mt-8 text-center text-xs text-slate-500 font-semibold">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-2">
+            <p>🔍 <b>Detektif Peluang</b> - Media Pembelajaran Interaktif Matematika Kelas 6 SD</p>
+            <p class="text-slate-400">Dirancang untuk Pembelajaran Digital & Papan Interaktif (PID)</p>
+        </div>
+    </footer>
+
+    <!-- AUDIO SYNTHESIZER FOR SOUND EFFECTS (Web Audio API - Self Contained) -->
+    <script>
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        
+        function playSound(type) {
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            if (type === 'click') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(400, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.05);
+            } else if (type === 'correct') {
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(523.25, audioCtx.currentTime); // C5
+                osc.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.1); // E5
+                gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.3);
+            } else if (type === 'wrong') {
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(200, audioCtx.currentTime);
+                osc.frequency.setValueAtTime(150, audioCtx.currentTime + 0.1);
+                gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.3);
+            } else if (type === 'coin') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(987.77, audioCtx.currentTime); // B5
+                osc.frequency.setValueAtTime(1318.51, audioCtx.currentTime + 0.08); // E6
+                gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.25);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.25);
+            }
+        }
+    </script>
+
+    <!-- CORE INTERACTIVE JAVASCRIPT -->
+    <script>
+        // Global Game Track Variable
+        let currentGame = { playerName: 'Detektif Cilik', score: 0 };
+
+        // Preload Mascot Images for Mario Canvas
+        const mascotImages = {
+            bencana: new Image(),
+            tambang: new Image()
+        };
+        mascotImages.bencana.src = 'https://i.ibb.co/Xr1yfCFm/Maskot-Siaga-Bencana-Ceria.png';
+        mascotImages.tambang.src = 'https://i.ibb.co/C5BmTD7D/Maskot-Penjelajah-Tambang-Ceria.png';
+
+        function navTo(pageId) {
+            playSound('click');
+            document.querySelectorAll('.view-page').forEach(page => {
+                page.classList.add('hidden');
+            });
+            const targetPage = document.getElementById('page-' + pageId);
+            if (targetPage) {
+                targetPage.classList.remove('hidden');
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (pageId === 'score') {
+                renderLeaderboard();
+            }
+            if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+                MathJax.typesetPromise();
+            }
+        }
+
+        // 2. ACCORDION UP-DOWN MENU
+        function toggleAccordion(contentId, chevronId) {
+            playSound('click');
+            const content = document.getElementById(contentId);
+            const chevron = document.getElementById(chevronId);
+            if (content && chevron) {
+                content.classList.toggle('hidden');
+                if (content.classList.contains('hidden')) {
+                    chevron.style.transform = 'rotate(0deg)';
+                } else {
+                    chevron.style.transform = 'rotate(180deg)';
+                }
+            }
+        }
+
+        // 3. MATERI TABS SWITCHER
+        function switchMateriTab(tabId) {
+            playSound('click');
+            document.querySelectorAll('.materi-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.materi-tab-btn').forEach(btn => {
+                btn.classList.remove('bg-purple-600', 'text-white');
+                btn.classList.add('text-purple-200');
+            });
+            const targetTab = document.getElementById('materi-' + tabId);
+            const targetBtn = document.getElementById('btn-' + tabId);
+            if (targetTab) targetTab.classList.remove('hidden');
+            if (targetBtn) {
+                targetBtn.classList.add('bg-purple-600', 'text-white');
+                targetBtn.classList.remove('text-purple-200');
+            }
+            if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+                MathJax.typesetPromise();
+            }
+        }
+
+        // 4. SIMULATOR MODE SWITCHER
+        function switchSimMode(mode) {
+            playSound('click');
+            document.querySelectorAll('.sim-box').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.sim-tab-btn').forEach(btn => {
+                btn.classList.remove('bg-blue-600', 'text-white');
+                btn.classList.add('text-slate-600');
+            });
+            const targetBox = document.getElementById('sim-mode-' + mode);
+            const targetBtn = document.getElementById('btn-sim-' + mode);
+            if (targetBox) targetBox.classList.remove('hidden');
+            if (targetBtn) {
+                targetBtn.classList.add('bg-blue-600', 'text-white');
+                targetBtn.classList.remove('text-slate-600');
+            }
+        }
+
+        // 5. COIN SIMULATOR LOGIC
+        let coinHeadCount = 0;
+        let coinTailCount = 0;
+        let coinHistory = [];
+        let coinIsFlipping = false;
+
+        function flipCoin(count) {
+            if (coinIsFlipping) return;
+            playSound('coin');
+            const coinEl = document.getElementById('coin-element');
+            const badgeEl = document.getElementById('coin-last-badge');
+            const faceIcon = document.getElementById('coin-face-icon');
+            const faceText = document.getElementById('coin-face-text');
+            
+            coinIsFlipping = true;
+            coinEl.classList.add('animate-flip');
+
+            setTimeout(() => {
+                coinEl.classList.remove('animate-flip');
+                coinIsFlipping = false;
+
+                let lastResult = '';
+                for (let i = 0; i < count; i++) {
+                    const isHead = Math.random() < 0.5;
+                    if (isHead) {
+                        coinHeadCount++;
+                        lastResult = 'A';
+                    } else {
+                        coinTailCount++;
+                        lastResult = 'G';
+                    }
+                    coinHistory.unshift(lastResult);
+                    if (coinHistory.length > 8) coinHistory.pop();
+                }
+
+                if (lastResult === 'A') {
+                    coinEl.className = "w-36 h-36 rounded-full bg-gradient-to-tr from-yellow-400 via-amber-300 to-yellow-500 border-4 border-yellow-600 shadow-xl flex flex-col items-center justify-center text-amber-950 font-black transform transition-all duration-300";
+                    faceIcon.className = "fa-solid fa-coins text-3xl mb-1";
+                    faceText.innerText = "ANGKA";
+                    badgeEl.innerHTML = `<span class="bg-amber-100 text-amber-800 px-3 py-1 rounded-full border border-amber-300 font-black">Hasil Terakhir: ANGKA (A)</span>`;
+                } else {
+                    coinEl.className = "w-36 h-36 rounded-full bg-gradient-to-tr from-slate-300 via-slate-100 to-slate-400 border-4 border-slate-500 shadow-xl flex flex-col items-center justify-center text-slate-800 font-black transform transition-all duration-300";
+                    faceIcon.className = "fa-solid fa-shield-halved text-3xl mb-1";
+                    faceText.innerText = "GAMBAR";
+                    badgeEl.innerHTML = `<span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full border border-blue-300 font-black">Hasil Terakhir: GAMBAR (G)</span>`;
+                }
+
+                updateCoinUI();
+            }, 600);
+        }
+
+        function updateCoinUI() {
+            const total = coinHeadCount + coinTailCount;
+            document.getElementById('coin-total-count').innerText = total;
+
+            const headPct = total > 0 ? Math.round((coinHeadCount / total) * 100) : 0;
+            const tailPct = total > 0 ? Math.round((coinTailCount / total) * 100) : 0;
+
+            document.getElementById('coin-head-count').innerText = `${coinHeadCount} Kali (${headPct}%)`;
+            document.getElementById('coin-tail-count').innerText = `${coinTailCount} Kali (${tailPct}%)`;
+
+            document.getElementById('bar-coin-head').style.width = headPct + '%';
+            document.getElementById('bar-coin-tail').style.width = tailPct + '%';
+
+            const histContainer = document.getElementById('coin-history-container');
+            if (coinHistory.length === 0) {
+                histContainer.innerHTML = `<span class="text-xs text-slate-400 font-semibold italic">Belum ada pelemparan</span>`;
+            } else {
+                histContainer.innerHTML = coinHistory.map(res => 
+                    res === 'A' ? `<span class="w-7 h-7 rounded-full bg-amber-400 text-amber-950 font-black text-xs flex items-center justify-center border border-amber-600 shadow-sm animate-bounce-slow">A</span>` :
+                                  `<span class="w-7 h-7 rounded-full bg-slate-300 text-slate-800 font-black text-xs flex items-center justify-center border border-slate-500 shadow-sm animate-bounce-slow">G</span>`
+                ).join('');
+            }
+        }
+
+        function resetCoinStats() {
+            playSound('click');
+            coinHeadCount = 0;
+            coinTailCount = 0;
+            coinHistory = [];
+            document.getElementById('coin-last-badge').innerHTML = `<span class="text-xs font-bold text-slate-400">Siap melempar koin...</span>`;
+            updateCoinUI();
+        }
+
+        // 6. DICE SIMULATOR LOGIC
+        let diceCounts = [0, 0, 0, 0, 0, 0];
+
+        function rollDice(count) {
+            playSound('click');
+            const diceEl = document.getElementById('dice-element');
+            diceEl.classList.add('animate-roll');
+
+            setTimeout(() => {
+                diceEl.classList.remove('animate-roll');
+                let lastVal = 1;
+                for (let i = 0; i < count; i++) {
+                    lastVal = Math.floor(Math.random() * 6) + 1;
+                    diceCounts[lastVal - 1]++;
+                }
+                
+                const diceEmojis = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
+                diceEl.innerText = diceEmojis[lastVal - 1];
+
+                updateDiceUI();
+            }, 400);
+        }
+
+        function updateDiceUI() {
+            const total = diceCounts.reduce((a, b) => a + b, 0);
+            document.getElementById('dice-total-count').innerText = total;
+
+            const container = document.getElementById('dice-bars-container');
+            container.innerHTML = '';
+
+            for (let i = 1; i <= 6; i++) {
+                const cnt = diceCounts[i - 1];
+                const pct = total > 0 ? Math.round((cnt / total) * 100) : 0;
+                container.innerHTML += `
+                    <div>
+                        <div class="flex justify-between text-xs font-bold mb-1">
+                            <span class="text-slate-700">Mata ${i} (${cnt}x)</span>
+                            <span class="text-purple-600">${pct}%</span>
+                        </div>
+                        <div class="w-full bg-slate-100 rounded-full h-3 overflow-hidden">
+                            <div class="bg-purple-500 h-full rounded-full transition-all duration-300" style="width: ${pct}%"></div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function resetDiceStats() {
+            playSound('click');
+            diceCounts = [0, 0, 0, 0, 0, 0];
+            document.getElementById('dice-element').innerText = '🎲';
+            updateDiceUI();
+        }
+
+        // 7. MARBLE SIMULATOR LOGIC
+        let marbleCounts = { red: 0, blue: 0, green: 0 };
+
+        function initMarbleBag() {
+            const container = document.getElementById('marble-bag-visual');
+            if (!container) return;
+            container.innerHTML = '';
+            const bag = ['bg-red-500', 'bg-red-500', 'bg-red-500', 'bg-red-500', 'bg-blue-500', 'bg-blue-500', 'bg-blue-500', 'bg-emerald-500', 'bg-emerald-500', 'bg-emerald-500'];
+            bag.forEach(color => {
+                container.innerHTML += `<div class="w-5 h-5 rounded-full ${color} shadow-md border border-white"></div>`;
+            });
+        }
+
+        function drawMarble() {
+            playSound('click');
+            const rand = Math.random();
+            let drawn = '';
+            if (rand < 0.4) {
+                drawn = 'red';
+                marbleCounts.red++;
+            } else if (rand < 0.7) {
+                drawn = 'blue';
+                marbleCounts.blue++;
+            } else {
+                drawn = 'green';
+                marbleCounts.green++;
+            }
+
+            const resultEl = document.getElementById('drawn-marble-result');
+            if (drawn === 'red') {
+                resultEl.innerHTML = `<span class="bg-red-100 text-red-700 px-3 py-1 rounded-full border border-red-300 font-black flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-red-500 inline-block"></span> Terambil: Kelereng MERAH!</span>`;
+            } else if (drawn === 'blue') {
+                resultEl.innerHTML = `<span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full border border-blue-300 font-black flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-blue-500 inline-block"></span> Terambil: Kelereng BIRU!</span>`;
+            } else {
+                resultEl.innerHTML = `<span class="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full border border-emerald-300 font-black flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-emerald-500 inline-block"></span> Terambil: Kelereng HIJAU!</span>`;
+            }
+
+            updateMarbleUI();
+        }
+
+        function updateMarbleUI() {
+            const total = marbleCounts.red + marbleCounts.blue + marbleCounts.green;
+            document.getElementById('marble-total-count').innerText = total;
+
+            document.getElementById('marble-red-count').innerText = `${marbleCounts.red} kali`;
+            document.getElementById('marble-blue-count').innerText = `${marbleCounts.blue} kali`;
+            document.getElementById('marble-green-count').innerText = `${marbleCounts.green} kali`;
+
+            const redPct = total > 0 ? (marbleCounts.red / total) * 100 : 0;
+            const bluePct = total > 0 ? (marbleCounts.blue / total) * 100 : 0;
+            const greenPct = total > 0 ? (marbleCounts.green / total) * 100 : 0;
+
+            document.getElementById('bar-marble-red').style.width = redPct + '%';
+            document.getElementById('bar-marble-blue').style.width = bluePct + '%';
+            document.getElementById('bar-marble-green').style.width = greenPct + '%';
+        }
+
+        function resetMarbleStats() {
+            playSound('click');
+            marbleCounts = { red: 0, blue: 0, green: 0 };
+            document.getElementById('drawn-marble-result').innerText = 'Klik tombol untuk mengambil!';
+            updateMarbleUI();
+        }
+
+        window.onload = function() {
+            updateCoinUI();
+            updateDiceUI();
+            initMarbleBag();
+            updateMarbleUI();
+        };
+
+        // ================= EDUCATIONAL GAME (MARIO JUMP & BUMP + QUESTION BANK) =================
+        
+        // 1. BANK SOAL (20 Pilihan Ganda & 20 Isian Singkat dengan HOTS Stimulus)
+        const bankPG = [
+            // HOTS 1 (Stimulus ~40 kata)
+            {
+                isHots: true,
+                type: 'pg',
+                stimulus: "Di sebuah supermarket, Detektif Budi mencatat 100 pengunjung pada hari Minggu. Dari total data tersebut, diketahui 40 orang membeli camilan manis, 35 orang membeli minuman dingin, dan sisanya 25 orang hanya membeli perlengkapan mandi.",
+                q: "Jika diambil 1 data pengunjung secara acak, berapa peluang pengunjung tersebut BUKAN pembeli camilan manis?",
+                options: ["60/100 (atau 3/5)", "40/100 (atau 2/5)", "25/100 (atau 1/4)", "35/100 (atau 7/20)"],
+                ans: 0
+            },
+            // HOTS 2 (Stimulus ~40 kata)
+            {
+                isHots: true,
+                type: 'pg',
+                stimulus: "Detektif Ani menemukan brankas berhadiah kelereng ajaib. Di dalam brankas terdapat 12 kelereng berpenomoran 1 sampai 12. Untuk membuka kunci brankas, Ani harus menentukan peluang terambilnya kelereng bernomor bilangan prima ganjil.",
+                q: "Berapakah peluang terambilnya kelereng bernomor bilangan prima ganjil dari brankas tersebut?",
+                options: ["4/12 (atau 1/3)", "5/12", "3/12 (atau 1/4)", "6/12 (atau 1/2)"],
+                ans: 0
+            },
+            { isHots: false, type: 'pg', q: "Sebuah koin dilempar 1 kali. Berapa peluang munculnya sisi Angka?", options: ["1/2", "1/4", "1/6", "2/2"], ans: 0 },
+            { isHots: false, type: 'pg', q: "Sebuah dadu dilempar 1 kali. Berapa peluang muncul mata dadu bernomor 5?", options: ["5/6", "1/6", "1/2", "2/6"], ans: 1 },
+            { isHots: false, type: 'pg', q: "Manakah kejadian yang PASTI terjadi (Peluang = 1)?", options: ["Kucing bertelur", "Matahari terbit esok hari", "Muncul angka 7 pada dadu", "Besok salju di Jakarta"], ans: 1 },
+            { isHots: false, type: 'pg', q: "Di kantong ada 3 bola Merah dan 7 bola Hijau. Berapa peluang ambil 1 bola Merah?", options: ["3/7", "7/10", "3/10", "1/3"], ans: 2 },
+            { isHots: false, type: 'pg', q: "Pada pelemparan satu dadu, berapa peluang muncul mata dadu GENAP (2, 4, 6)?", options: ["3/6 (atau 1/2)", "1/6", "2/6", "4/6"], ans: 0 },
+            { isHots: false, type: 'pg', q: "Berapa banyak titik sampel dari pelemparan 2 koin bersamaan?", options: ["2", "4", "6", "8"], ans: 1 },
+            { isHots: false, type: 'pg', q: "Peluang suatu kejadian yang tidak mungkin terjadi adalah...", options: ["0", "0.5", "1", "-1"], ans: 0 },
+            { isHots: false, type: 'pg', q: "Jika peluang hari ini hujan adalah 0.8, maka peluang hari ini TIDAK hujan adalah...", options: ["0.2", "0.8", "1.0", "0.5"], ans: 0 },
+            { isHots: false, type: 'pg', q: "Sebutkan titik sampel dari sisi koin!", options: ["{A, G}", "{1, 2}", "{M, H}", "{0, 1}"], ans: 0 },
+            { isHots: false, type: 'pg', q: "Dua dadu dilempar bersamaan. Berapa jumlah ruang sampelnya n(S)?", options: ["12", "36", "18", "24"], ans: 1 },
+            { isHots: false, type: 'pg', q: "Sebuah koin dilempar. Manakah pasangan ruang sampel yang benar?", options: ["{Angka, Gambar}", "{Merah, Biru}", "{1, 2, 3, 4}", "{Ganjil, Genap}"], ans: 0 },
+            { isHots: false, type: 'pg', q: "Pada dadu, berapa peluang muncul mata dadu prima (2, 3, 5)?", options: ["3/6 (atau 1/2)", "2/6", "1/6", "4/6"], ans: 0 },
+            { isHots: false, type: 'pg', q: "Kotak berisi 5 kelereng merah dan 5 biru. Peluang mengambil kelereng biru adalah...", options: ["5/10 (atau 1/2)", "1/10", "2/5", "3/5"], ans: 0 },
+            { isHots: false, type: 'pg', q: "Sebuah koin dilempar 50 kali. Sisi Angka muncul 20 kali. Berapa frekuensi relatif sisi Gambar?", options: ["30/50 (atau 3/5)", "20/50", "10/50", "50/50"], ans: 0 },
+            { isHots: false, type: 'pg', q: "Manakah nilai peluang yang TIDAK MUNGKIN terjadi?", options: ["1.5", "0.5", "0", "1"], ans: 0 },
+            { isHots: false, type: 'pg', q: "Sebuah huruf dipilih acak dari kata 'DETEKTIF'. Berapa peluang terpilih huruf 'T'?", options: ["2/8 (atau 1/4)", "1/8", "3/8", "4/8"], ans: 0 },
+            { isHots: false, type: 'pg', q: "Di kelas ada 15 siswa laki-laki dan 15 perempuan. Peluang terpilih ketua kelas perempuan adalah...", options: ["15/30 (atau 1/2)", "1/15", "1/30", "15/15"], ans: 0 },
+            { isHots: false, type: 'pg', q: "Dadu dilempar 1 kali. Peluang muncul angka lebih dari 4 (yaitu 5 dan 6) adalah...", options: ["2/6 (atau 1/3)", "1/6", "3/6", "4/6"], ans: 0 }
+        ];
+
+        const bankIsian = [
+            // HOTS 1 (Stimulus ~40 kata)
+            {
+                isHots: true,
+                type: 'isian',
+                stimulus: "Tim Detektif Sekolah mengadakan kegiatan sosial membagikan 50 paket sembako. Di dalam kantong undian terdapat 15 kupon berhadiah buku cerita, 20 kupon berhadiah pensil warna, dan 15 kupon berhadiah tas sekolah.",
+                q: "Berapa peluang seorang siswa mendapatkan kupon BUKAN buku cerita? (Jawab dalam pecahan sederhana, contoh: 7/10)",
+                ans: ["7/10", "35/50", "0.7"]
+            },
+            // HOTS 2 (Stimulus ~40 kata)
+            {
+                isHots: true,
+                type: 'isian',
+                stimulus: "Dalam arena permainan ketangkasan, terdapat 20 sasaran tembak bertuliskan angka 1 hingga 20. Detektif Cici memanah satu sasaran secara acak. Sasaran kelipatan 4 memberikan poin tertinggi.",
+                q: "Berapa peluang sasaran kelipatan 4 yang tertembak oleh Detektif Cici? (Jawab dalam pecahan sederhana, contoh: 1/4)",
+                ans: ["1/4", "5/20", "0.25"]
+            },
+            { isHots: false, type: 'isian', q: "Sebuah koin dilempar. Ruang sampel n(S) pada koin adalah...", ans: ["2"] },
+            { isHots: false, type: 'isian', q: "Berapa jumlah mata dadu pada sebuah dadu standar?", ans: ["6"] },
+            { isHots: false, type: 'isian', q: "Jika peluang besok cerah adalah 0.7, berapa peluang besok hujan?", ans: ["0.3"] },
+            { isHots: false, type: 'isian', q: "Peluang kejadian yang pasti terjadi bernilai...", ans: ["1"] },
+            { isHots: false, type: 'isian', q: "Peluang kejadian yang tidak mungkin terjadi bernilai...", ans: ["0"] },
+            { isHots: false, type: 'isian', q: "Koin dilempar 100 kali. Jika Angka muncul 45 kali, berapa kali Gambar muncul?", ans: ["55"] },
+            { isHots: false, type: 'isian', q: "Kantong berisi 4 kelereng merah dan 6 kelereng biru. Berapa peluang terambil kelereng merah? (Pecahan sederhana)", ans: ["2/5", "4/10", "0.4"] },
+            { isHots: false, type: 'isian', q: "Berapa banyak angka prima pada sebuah dadu (2, 3, 5)?", ans: ["3"] },
+            { isHots: false, type: 'isian', q: "Dalam kata 'MATEMATIKA', ada berapa total huruf seluruhnya?", ans: ["10"] },
+            { isHots: false, type: 'isian', q: "Pada pelemparan 1 koin, peluang muncul Gambar adalah...", ans: ["1/2", "0.5"] },
+            { isHots: false, type: 'isian', q: "Nilai peluang selalu berada di antara angka 0 dan...", ans: ["1"] },
+            { isHots: false, type: 'isian', q: "Jumlah sisi Angka pada sebuah koin adalah...", ans: ["1"] },
+            { isHots: false, type: 'isian', q: "Ada berapa mata dadu yang merupakan angka genap (2, 4, 6)?", ans: ["3"] },
+            { isHots: false, type: 'isian', q: "Di dalam kotak ada 10 bola merah. Peluang terambil bola merah adalah...", ans: ["1"] },
+            { isHots: false, type: 'isian', q: "Peluang terambil bola hijau dari kotak berisi 10 bola merah adalah...", ans: ["0"] },
+            { isHots: false, type: 'isian', q: "Sebutkan total ruang sampel pelemparan dua koin!", ans: ["4"] },
+            { isHots: false, type: 'isian', q: "Dadu dilempar. Berapa peluang muncul angka 6? (Bentuk pecahan)", ans: ["1/6"] },
+            { isHots: false, type: 'isian', q: "Sebuah koin dilempar 20 kali. Gambar muncul 12 kali. Angka muncul ... kali.", ans: ["8"] }
+        ];
+
+        // 2. GAME STATE & CONTROL VARIABLES
+        let gameConfig = {
+            mode: 'solo', // 'solo' or 'duel'
+            p1Name: 'Player 1',
+            p2Name: 'Player 2',
+            p1Mascot: 'bencana',
+            p2Mascot: 'tambang',
+            selectedQuestions: [],
+            currentStarIndex: 0
+        };
+
+        let gameState = {
+            p1: { x: 50, y: 280, vx: 0, vy: 0, isGrounded: false, score: 0, color: '#3B82F6' },
+            p2: { x: 90, y: 280, vx: 0, vy: 0, isGrounded: false, score: 0, color: '#EF4444' },
+            stars: [
+                { x: 130, y: 170, hit: false, questionIdx: 0 },
+                { x: 280, y: 120, hit: false, questionIdx: 1 },
+                { x: 430, y: 170, hit: false, questionIdx: 2 },
+                { x: 580, y: 120, hit: false, questionIdx: 3 },
+                { x: 720, y: 200, hit: false, questionIdx: 4 }
+            ],
+            platforms: [
+                { x: 0, y: 340, w: 800, h: 60 }, // Ground
+                { x: 100, y: 250, w: 100, h: 20 },
+                { x: 250, y: 200, w: 100, h: 20 },
+                { x: 400, y: 250, w: 100, h: 20 },
+                { x: 550, y: 200, w: 100, h: 20 }
+            ],
+            activePlayerTurn: 'p1',
+            activeStarBlock: null,
+            timerInterval: null,
+            timeLeft: 30,
+            isPaused: false,
+            animFrame: null
+        };
+
+        const keys = {};
+        window.addEventListener('keydown', e => { keys[e.key] = true; keys[e.code] = true; });
+        window.addEventListener('keyup', e => { keys[e.key] = false; keys[e.code] = false; });
+        
+        function setKey(k, val) {
+            keys[k] = val;
+            if (k === 'a' || k === 'A') { keys['a'] = val; keys['A'] = val; }
+            if (k === 'd' || k === 'D') { keys['d'] = val; keys['D'] = val; }
+            if (k === 'w' || k === 'W') { keys['w'] = val; keys['W'] = val; }
+        }
+
+        function selectGameMode(mode) {
+            playSound('click');
+            gameConfig.mode = mode;
+            const soloBtn = document.getElementById('mode-solo-btn');
+            const duelBtn = document.getElementById('mode-duel-btn');
+            const p2Box = document.getElementById('p2-input-box');
+            const p2MascotBox = document.getElementById('p2-mascot-box');
+            const hintText = document.getElementById('control-hint-text');
+
+            if (mode === 'solo') {
+                soloBtn.className = "py-2.5 px-3 rounded-xl font-black text-sm transition bg-white text-pink-600 shadow-sm flex items-center justify-center gap-2";
+                duelBtn.className = "py-2.5 px-3 rounded-xl font-black text-sm transition text-slate-600 hover:bg-white/50 flex items-center justify-center gap-2";
+                p2Box.classList.add('hidden');
+                if (p2MascotBox) p2MascotBox.classList.add('hidden');
+                if (hintText) hintText.innerHTML = `<i class="fa-solid fa-keyboard"></i> Kontrol P1: Gunakan [A/D] Jalan, [W/Spasi] Lompat / Tombol Sentuh.`;
+            } else {
+                duelBtn.className = "py-2.5 px-3 rounded-xl font-black text-sm transition bg-white text-pink-600 shadow-sm flex items-center justify-center gap-2";
+                soloBtn.className = "py-2.5 px-3 rounded-xl font-black text-sm transition text-slate-600 hover:bg-white/50 flex items-center justify-center gap-2";
+                p2Box.classList.remove('hidden');
+                if (p2MascotBox) p2MascotBox.classList.remove('hidden');
+                if (hintText) hintText.innerHTML = `<i class="fa-solid fa-keyboard"></i> Kontrol: P1 [A/W/D] & P2 [Panah/Arrow] / Tombol Sentuh Layar.`;
+            }
+        }
+
+        function selectMascot(player, mascotKey) {
+            playSound('click');
+            if (player === 'p1') {
+                gameConfig.p1Mascot = mascotKey;
+                document.getElementById('mascot-p1-bencana').className = mascotKey === 'bencana' ? 'p-2 rounded-xl border-2 border-indigo-600 bg-indigo-100/50 flex items-center gap-2 text-xs font-black text-indigo-900 transition' : 'p-2 rounded-xl border-2 border-transparent bg-white flex items-center gap-2 text-xs font-bold text-slate-600 transition';
+                document.getElementById('mascot-p1-tambang').className = mascotKey === 'tambang' ? 'p-2 rounded-xl border-2 border-indigo-600 bg-indigo-100/50 flex items-center gap-2 text-xs font-black text-indigo-900 transition' : 'p-2 rounded-xl border-2 border-transparent bg-white flex items-center gap-2 text-xs font-bold text-slate-600 transition';
+            } else {
+                gameConfig.p2Mascot = mascotKey;
+                document.getElementById('mascot-p2-bencana').className = mascotKey === 'bencana' ? 'p-2 rounded-xl border-2 border-rose-600 bg-rose-100/50 flex items-center gap-2 text-xs font-black text-rose-900 transition' : 'p-2 rounded-xl border-2 border-transparent bg-white flex items-center gap-2 text-xs font-bold text-slate-600 transition';
+                document.getElementById('mascot-p2-tambang').className = mascotKey === 'tambang' ? 'p-2 rounded-xl border-2 border-rose-600 bg-rose-100/50 flex items-center gap-2 text-xs font-black text-rose-900 transition' : 'p-2 rounded-xl border-2 border-transparent bg-white flex items-center gap-2 text-xs font-bold text-slate-600 transition';
+            }
+        }
+
+        // Pick 5 random questions (ensuring at least 2 HOTS)
+        function generate5Questions() {
+            // Get HOTS questions
+            const hotsPG = bankPG.filter(q => q.isHots);
+            const hotsIsian = bankIsian.filter(q => q.isHots);
+            const normalPG = bankPG.filter(q => !q.isHots);
+            const normalIsian = bankIsian.filter(q => !q.isHots);
+
+            // Select 2 HOTS
+            const selectedHots = [
+                hotsPG[Math.floor(Math.random() * hotsPG.length)],
+                hotsIsian[Math.floor(Math.random() * hotsIsian.length)]
+            ];
+
+            // Select 3 Normal (mix of PG and Isian)
+            const shuffle = arr => arr.sort(() => 0.5 - Math.random());
+            const normalPool = shuffle([...normalPG, ...normalIsian]);
+            const selectedNormal = normalPool.slice(0, 3);
+
+            return shuffle([...selectedHots, ...selectedNormal]);
+        }
+
+        function startGame() {
+            const p1Val = document.getElementById('player-name-input').value.trim() || 'Detektif Biru';
+            const p2Val = document.getElementById('player2-name-input').value.trim() || 'Detektif Merah';
+
+            playSound('click');
+            gameConfig.p1Name = p1Val;
+            gameConfig.p2Name = p2Val;
+            gameConfig.selectedQuestions = generate5Questions();
+
+            // Setup UI Elements
+            document.getElementById('game-start-screen').classList.add('hidden');
+            document.getElementById('game-result-screen').classList.add('hidden');
+            document.getElementById('game-quiz-screen').classList.remove('hidden');
+
+            document.getElementById('display-player-name').innerText = gameConfig.p1Name;
+            document.getElementById('game-score-p1').innerText = `0 Poin`;
+
+            if (gameConfig.mode === 'duel') {
+                document.getElementById('p2-score-badge').classList.remove('hidden');
+                document.getElementById('p2-touch-controls').classList.remove('hidden');
+                document.getElementById('display-player2-name').innerText = gameConfig.p2Name;
+                document.getElementById('game-score-p2').innerText = `0 Poin`;
+            } else {
+                document.getElementById('p2-score-badge').classList.add('hidden');
+                document.getElementById('p2-touch-controls').classList.add('hidden');
+            }
+
+            // Reset Game Physics & Stars
+            gameState.p1 = { x: 50, y: 280, vx: 0, vy: 0, isGrounded: false, score: 0, color: '#3B82F6' };
+            gameState.p2 = { x: 90, y: 280, vx: 0, vy: 0, isGrounded: false, score: 0, color: '#EF4444' };
+            gameState.stars.forEach((s, idx) => { s.hit = false; s.questionIdx = idx; });
+            gameState.isPaused = false;
+
+            updateStarsUI();
+            startMarioLoop();
+        }
+
+        function updateStarsUI() {
+            const remaining = gameState.stars.filter(s => !s.hit).length;
+            document.getElementById('stars-left-count').innerText = remaining;
+            document.getElementById('game-score-p1').innerText = `${gameState.p1.score} Poin`;
+            if (gameConfig.mode === 'duel') {
+                document.getElementById('game-score-p2').innerText = `${gameState.p2.score} Poin`;
+            }
+        }
+
+        // Mario Engine Main Loop
+        function startMarioLoop() {
+            if (gameState.animFrame) cancelAnimationFrame(gameState.animFrame);
+
+            const canvas = document.getElementById('mario-canvas');
+            const ctx = canvas.getContext('2d');
+
+            function update() {
+                if (gameState.isPaused) return;
+
+                // --- P1 Movement ---
+                if (keys['a'] || keys['A'] || keys['ArrowLeft'] && gameConfig.mode === 'solo') gameState.p1.vx = -4;
+                else if (keys['d'] || keys['D'] || keys['ArrowRight'] && gameConfig.mode === 'solo') gameState.p1.vx = 4;
+                else gameState.p1.vx = 0;
+
+                if ((keys['w'] || keys['W'] || keys[' '] || keys['ArrowUp'] && gameConfig.mode === 'solo') && gameState.p1.isGrounded) {
+                    gameState.p1.vy = -11;
+                    gameState.p1.isGrounded = false;
+                    playSound('click');
+                }
+
+                // Physics P1
+                gameState.p1.vy += 0.55; // gravity
+                gameState.p1.x += gameState.p1.vx;
+                gameState.p1.y += gameState.p1.vy;
+                checkCollisions(gameState.p1, 'p1');
+
+                // --- P2 Movement (Duel Mode) ---
+                if (gameConfig.mode === 'duel') {
+                    if (keys['ArrowLeft']) gameState.p2.vx = -4;
+                    else if (keys['ArrowRight']) gameState.p2.vx = 4;
+                    else gameState.p2.vx = 0;
+
+                    if (keys['ArrowUp'] && gameState.p2.isGrounded) {
+                        gameState.p2.vy = -11;
+                        gameState.p2.isGrounded = false;
+                        playSound('click');
+                    }
+
+                    // Physics P2
+                    gameState.p2.vy += 0.55;
+                    gameState.p2.x += gameState.p2.vx;
+                    gameState.p2.y += gameState.p2.vy;
+                    checkCollisions(gameState.p2, 'p2');
+                }
+            }
+
+            function checkCollisions(player, playerTag) {
+                // Bounds
+                if (player.x < 10) player.x = 10;
+                if (player.x > 760) player.x = 760;
+
+                // Platforms
+                player.isGrounded = false;
+                gameState.platforms.forEach(plat => {
+                    if (player.x + 24 > plat.x && player.x < plat.x + plat.w &&
+                        player.y + 32 >= plat.y && player.y + 32 <= plat.y + 16 && player.vy >= 0) {
+                        player.y = plat.y - 32;
+                        player.vy = 0;
+                        player.isGrounded = true;
+                    }
+                });
+
+                // Stars Collision (Bumping block from below or jumping into it)
+                gameState.stars.forEach(star => {
+                    if (!star.hit && !gameState.isPaused) {
+                        const isOverlappingX = player.x + 24 > star.x && player.x < star.x + 32;
+                        const isOverlappingY = player.y < star.y + 32 && player.y + 32 > star.y;
+
+                        if (isOverlappingX && isOverlappingY) {
+                            if (player.vy < 1) { // Bumped while moving up/jumping
+                                star.hit = true;
+                                player.vy = 3; // Bounce back down
+                                playSound('coin');
+                                triggerQuestionModal(playerTag, star);
+                            }
+                        }
+                    }
+                });
+            }
+
+            function draw() {
+                // Sky & Clouds
+                ctx.fillStyle = '#38BDF8';
+                ctx.fillRect(0, 0, 800, 400);
+
+                // Clouds
+                ctx.fillStyle = '#FFFFFF';
+                ctx.beginPath(); ctx.arc(100, 80, 25, 0, Math.PI * 2); ctx.arc(130, 80, 35, 0, Math.PI * 2); ctx.fill();
+                ctx.beginPath(); ctx.arc(500, 70, 20, 0, Math.PI * 2); ctx.arc(530, 70, 30, 0, Math.PI * 2); ctx.fill();
+
+                // Platforms
+                gameState.platforms.forEach(plat => {
+                    ctx.fillStyle = '#15803D';
+                    ctx.fillRect(plat.x, plat.y, plat.w, 10);
+                    ctx.fillStyle = '#B45309';
+                    ctx.fillRect(plat.x, plat.y + 10, plat.w, plat.h - 10);
+                });
+
+                // Star Blocks (⭐)
+                gameState.stars.forEach(star => {
+                    if (!star.hit) {
+                        ctx.fillStyle = '#F59E0B';
+                        ctx.fillRect(star.x, star.y, 32, 32);
+                        ctx.strokeStyle = '#78350F';
+                        ctx.lineWidth = 3;
+                        ctx.strokeRect(star.x, star.y, 32, 32);
+                        ctx.fillStyle = '#FFFFFF';
+                        ctx.font = 'bold 18px Nunito';
+                        ctx.fillText('⭐', star.x + 5, star.y + 23);
+                    } else {
+                        ctx.fillStyle = '#94A3B8';
+                        ctx.fillRect(star.x, star.y, 32, 32);
+                        ctx.strokeStyle = '#475569';
+                        ctx.lineWidth = 2;
+                        ctx.strokeRect(star.x, star.y, 32, 32);
+                        ctx.fillStyle = '#64748B';
+                        ctx.font = 'bold 16px Nunito';
+                        ctx.fillText('✓', star.x + 10, star.y + 22);
+                    }
+                });
+
+                // Players (Mascot Image Sprites)
+                // P1 Mascot
+                const imgP1 = mascotImages[gameConfig.p1Mascot];
+                if (imgP1 && imgP1.complete && imgP1.naturalWidth !== 0) {
+                    ctx.drawImage(imgP1, gameState.p1.x - 4, gameState.p1.y - 6, 34, 40);
+                } else {
+                    ctx.fillStyle = gameState.p1.color;
+                    ctx.fillRect(gameState.p1.x, gameState.p1.y, 26, 32);
+                }
+                ctx.fillStyle = '#FFFFFF'; ctx.font = 'bold 10px Nunito';
+                ctx.fillText('P1', gameState.p1.x + 7, gameState.p1.y - 8);
+
+                // P2 Mascot in Duel mode
+                if (gameConfig.mode === 'duel') {
+                    const imgP2 = mascotImages[gameConfig.p2Mascot];
+                    if (imgP2 && imgP2.complete && imgP2.naturalWidth !== 0) {
+                        ctx.drawImage(imgP2, gameState.p2.x - 4, gameState.p2.y - 6, 34, 40);
+                    } else {
+                        ctx.fillStyle = gameState.p2.color;
+                        ctx.fillRect(gameState.p2.x, gameState.p2.y, 26, 32);
+                    }
+                    ctx.fillStyle = '#FFFFFF'; ctx.font = 'bold 10px Nunito';
+                    ctx.fillText('P2', gameState.p2.x + 7, gameState.p2.y - 8);
+                }
+            }
+
+            function loop() {
+                update();
+                draw();
+                gameState.animFrame = requestAnimationFrame(loop);
+            }
+
+            loop();
+        }
+
+        // 3. QUESTION MODAL HANDLER
+        function triggerQuestionModal(playerTag, starBlock) {
+            gameState.isPaused = true;
+            gameState.activePlayerTurn = playerTag;
+            gameState.activeStarBlock = starBlock;
+
+            const qData = gameConfig.selectedQuestions[starBlock.questionIdx];
+            const modal = document.getElementById('question-modal');
+            const playerTagEl = document.getElementById('modal-player-tag');
+            const pName = playerTag === 'p1' ? gameConfig.p1Name : gameConfig.p2Name;
+
+            playerTagEl.innerText = `Giliran: ${pName} (${playerTag.toUpperCase()})`;
+            playerTagEl.className = playerTag === 'p1' ? 'bg-blue-600 text-white text-xs font-black px-2.5 py-0.5 rounded-full' : 'bg-rose-600 text-white text-xs font-black px-2.5 py-0.5 rounded-full';
+
+            // Stimulus HOTS Card
+            const stimulusCard = document.getElementById('modal-stimulus-card');
+            if (qData.isHots && qData.stimulus) {
+                stimulusCard.classList.remove('hidden');
+                document.getElementById('modal-stimulus-text').innerText = qData.stimulus;
+            } else {
+                stimulusCard.classList.add('hidden');
+            }
+
+            document.getElementById('modal-question-text').innerText = qData.q;
+
+            // Render PG or Isian
+            const pgContainer = document.getElementById('modal-pg-options');
+            const isianContainer = document.getElementById('modal-isian-container');
+
+            if (qData.type === 'pg') {
+                pgContainer.classList.remove('hidden');
+                isianContainer.classList.add('hidden');
+                pgContainer.innerHTML = '';
+                qData.options.forEach((opt, idx) => {
+                    pgContainer.innerHTML += `
+                        <button onclick="submitModalAnswer(${idx})" class="w-full text-left p-3.5 rounded-2xl border-2 border-slate-200 hover:border-amber-500 hover:bg-amber-50 font-extrabold text-slate-700 transition flex items-center justify-between group">
+                            <span>${opt}</span>
+                            <i class="fa-solid fa-circle-chevron-right text-slate-300 group-hover:text-amber-500 transition"></i>
+                        </button>
+                    `;
+                });
+            } else {
+                pgContainer.classList.add('hidden');
+                isianContainer.classList.remove('hidden');
+                document.getElementById('modal-isian-input').value = '';
+            }
+
+            modal.classList.remove('hidden');
+
+            // Timer 30s
+            clearInterval(gameState.timerInterval);
+            gameState.timeLeft = 30;
+            document.getElementById('modal-timer').innerText = `${gameState.timeLeft}s`;
+
+            gameState.timerInterval = setInterval(() => {
+                gameState.timeLeft--;
+                document.getElementById('modal-timer').innerText = `${gameState.timeLeft}s`;
+                if (gameState.timeLeft <= 0) {
+                    clearInterval(gameState.timerInterval);
+                    playSound('wrong');
+                    closeQuestionModal(false);
+                }
+            }, 1000);
+        }
+
+        function submitModalAnswer(chosenIdx) {
+            clearInterval(gameState.timerInterval);
+            const qData = gameConfig.selectedQuestions[gameState.activeStarBlock.questionIdx];
+            const isCorrect = chosenIdx === qData.ans;
+
+            if (isCorrect) playSound('correct');
+            else playSound('wrong');
+
+            closeQuestionModal(isCorrect);
+        }
+
+        function submitIsianAnswer() {
+            clearInterval(gameState.timerInterval);
+            const userAns = document.getElementById('modal-isian-input').value.trim().toLowerCase();
+            const qData = gameConfig.selectedQuestions[gameState.activeStarBlock.questionIdx];
+            
+            const isCorrect = qData.ans.some(validAns => validAns.toLowerCase() === userAns);
+
+            if (isCorrect) playSound('correct');
+            else playSound('wrong');
+
+            closeQuestionModal(isCorrect);
+        }
+
+        function closeQuestionModal(isCorrect) {
+            document.getElementById('question-modal').classList.add('hidden');
+
+            if (isCorrect) {
+                if (gameState.activePlayerTurn === 'p1') gameState.p1.score += 20;
+                else gameState.p2.score += 20;
+            }
+
+            updateStarsUI();
+
+            // Check if all 5 stars are collected
+            const allHit = gameState.stars.every(s => s.hit);
+            if (allHit) {
+                setTimeout(endMarioGame, 500);
+            } else {
+                gameState.isPaused = false;
+                startMarioLoop();
+            }
+        }
+
+        function endMarioGame() {
+            if (gameState.animFrame) cancelAnimationFrame(gameState.animFrame);
+            
+            document.getElementById('game-quiz-screen').classList.add('hidden');
+            document.getElementById('game-result-screen').classList.remove('hidden');
+
+            const scoreDisplay = document.getElementById('result-score-display');
+            const title = document.getElementById('result-title');
+            const feedback = document.getElementById('final-feedback');
+
+            if (gameConfig.mode === 'solo') {
+                title.innerText = "Misi Solo Selesai!";
+                scoreDisplay.innerHTML = `
+                    <span class="text-xs font-extrabold text-emerald-600 uppercase tracking-widest">SKOR AKHIR DETEKTIF</span>
+                    <div class="text-5xl font-black text-emerald-700">${gameState.p1.score}</div>
+                `;
+                feedback.innerText = gameState.p1.score >= 80 ? "Luar biasa! Kamu memecahkan semua kasus Mario Peluang dengan hebat! 🌟" : "Bagus! Terus tingkatkan kemampuan investigasimu!";
+                
+                // Store current score for leaderboard save
+                currentGame.playerName = gameConfig.p1Name;
+                currentGame.score = gameState.p1.score;
+            } else {
+                title.innerText = "DUEL SELESAI! ⚔️";
+                const p1Score = gameState.p1.score;
+                const p2Score = gameState.p2.score;
+
+                let winnerText = "";
+                if (p1Score > p2Score) winnerText = `🏆 Pemenang: ${gameConfig.p1Name} (Detektif Biru)!`;
+                else if (p2Score > p1Score) winnerText = `🏆 Pemenang: ${gameConfig.p2Name} (Detektif Merah)!`;
+                else winnerText = "🤝 Hasil Seri! Keduanya Detektif Hebat!";
+
+                scoreDisplay.innerHTML = `
+                    <div class="grid grid-cols-2 gap-4 my-2">
+                        <div class="bg-blue-100 p-3 rounded-2xl border border-blue-300">
+                            <span class="text-xs font-black text-blue-700">${gameConfig.p1Name}</span>
+                            <div class="text-3xl font-black text-blue-900">${p1Score} Poin</div>
+                        </div>
+                        <div class="bg-rose-100 p-3 rounded-2xl border border-rose-300">
+                            <span class="text-xs font-black text-rose-700">${gameConfig.p2Name}</span>
+                            <div class="text-3xl font-black text-rose-900">${p2Score} Poin</div>
+                        </div>
+                    </div>
+                `;
+                feedback.innerText = winnerText;
+
+                // Set highest player score for saving
+                const isP1Higher = p1Score >= p2Score;
+                currentGame.playerName = isP1Higher ? gameConfig.p1Name : gameConfig.p2Name;
+                currentGame.score = Math.max(p1Score, p2Score);
+            }
+        }
+
+        function resetGameScreen() {
+            playSound('click');
+            if (gameState.animFrame) cancelAnimationFrame(gameState.animFrame);
+            document.getElementById('game-result-screen').classList.add('hidden');
+            document.getElementById('game-quiz-screen').classList.add('hidden');
+            document.getElementById('game-start-screen').classList.remove('hidden');
+        }
+
+        // ================= LEADERBOARD SYSTEM (LOCAL STORAGE) =================
+        function saveScoreAndNav() {
+            playSound('click');
+            const scores = JSON.parse(localStorage.getItem('detektif_scores') || '[]');
+            
+            scores.push({
+                name: currentGame.playerName,
+                score: currentGame.score,
+                date: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short' })
+            });
+
+            // Sort highest first
+            scores.sort((a, b) => b.score - a.score);
+
+            // Keep top 10
+            localStorage.setItem('detektif_scores', JSON.stringify(scores.slice(0, 10)));
+
+            navTo('score');
+        }
+
+        function renderLeaderboard() {
+            const scores = JSON.parse(localStorage.getItem('detektif_scores') || '[]');
+            const tbody = document.getElementById('leaderboard-body');
+            tbody.innerHTML = '';
+
+            if (scores.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="4" class="p-6 text-center text-slate-400 font-bold">
+                            Belum ada skor tersimpan. Mainkan gim sekarang!
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            scores.forEach((item, index) => {
+                const rankBadge = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : `#${index + 1}`;
+                tbody.innerHTML += `
+                    <tr class="hover:bg-slate-50 transition">
+                        <td class="p-4 font-black text-lg">${rankBadge}</td>
+                        <td class="p-4 font-bold text-slate-800">${item.name}</td>
+                        <td class="p-4"><span class="bg-amber-100 text-amber-800 px-3 py-1 rounded-xl text-xs font-black">${item.score} Poin</span></td>
+                        <td class="p-4 text-xs text-slate-400">${item.date}</td>
+                    </tr>
+                `;
+            });
+        }
+
+        function clearLeaderboard() {
+            playSound('click');
+            localStorage.removeItem('detektif_scores');
+            renderLeaderboard();
+        }
+    </script>
+</body>
+</html>
